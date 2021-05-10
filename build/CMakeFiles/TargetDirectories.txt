@@ -1,7 +1,0 @@
-/home/otservbr/build/CMakeFiles/edit_cache.dir
-/home/otservbr/build/CMakeFiles/otg_lib.dir
-/home/otservbr/build/CMakeFiles/otg.dir
-/home/otservbr/build/CMakeFiles/check_git.dir
-/home/otservbr/build/CMakeFiles/rebuild_cache.dir
-/home/otservbr/build/src/CMakeFiles/edit_cache.dir
-/home/otservbr/build/src/CMakeFiles/rebuild_cache.dir

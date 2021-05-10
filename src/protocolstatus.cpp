@@ -136,12 +136,17 @@ void ProtocolStatus::sendStatusString()
 		}
 	}
 	
-	auto spoofGain = real;
-	spoofGain = spoofGain * g_config.getNumber(ConfigManager::SPOOF_GAIN);
+	//multiworld mod
+	std::ostringstream query;
+	query << "SELECT COUNT(*) AS `count` FROM `players_online` ";
 	
-	for (uint32_t x = 0; x < spoofGain; ++x) {
-		real++;
+	DBResult_ptr result = Database::getInstance().storeQuery(query.str());
+	if (!result) {
+		real = 0;
 	}
+	real = result->getNumber<int32_t>("count");
+	//multiworld mod
+	
 	
 	players.append_attribute("online") = std::to_string(real).c_str();
 	players.append_attribute("max") = std::to_string(g_config.getNumber(ConfigManager::MAX_PLAYERS)).c_str();
@@ -184,7 +189,20 @@ void ProtocolStatus::sendStatusString()
 void ProtocolStatus::sendInfo(uint16_t requestedInfo, const std::string& characterName)
 {
 	auto output = OutputMessagePool::getOutputMessage();
-
+	//multiworld mod
+	uint32_t playersFromDB = 0;
+	std::ostringstream query;
+	query << "SELECT COUNT(*) AS `count` FROM `players_online` ";
+	
+	DBResult_ptr result = Database::getInstance().storeQuery(query.str());
+	if (!result) {
+		playersFromDB = 0;
+	}
+	playersFromDB = result->getNumber<int32_t>("count");
+	//multiworld mod
+	
+	
+	
 	if (requestedInfo & REQUEST_BASIC_SERVER_INFO) {
 		output->addByte(0x10);
 		output->addString(g_config.getString(ConfigManager::SERVER_NAME));
@@ -208,7 +226,7 @@ void ProtocolStatus::sendInfo(uint16_t requestedInfo, const std::string& charact
 
 	if (requestedInfo & REQUEST_PLAYERS_INFO) {
 		output->addByte(0x20);
-		output->add<uint32_t>(g_game.getPlayersOnline()*g_config.getNumber(ConfigManager::SPOOF_GAIN));
+		output->add<uint32_t>(playersFromDB);
 		output->add<uint32_t>(g_config.getNumber(ConfigManager::MAX_PLAYERS));
 		output->add<uint32_t>(g_game.getPlayersRecord()*g_config.getNumber(ConfigManager::SPOOF_GAIN));
 	}
@@ -225,26 +243,23 @@ void ProtocolStatus::sendInfo(uint16_t requestedInfo, const std::string& charact
 
 	if (requestedInfo & REQUEST_EXT_PLAYERS_INFO) {
 		output->addByte(0x21); // players info - online players list
-		uint32_t realspoof = 0;
-		const auto& players = g_game.getPlayers();
-		output->add<uint32_t>(players.size());
-		for (const auto& it : players) {
-			output->addString(it.second->getName());
-			output->add<uint32_t>(it.second->getLevel());
-			realspoof++;
+		//multiworldmode
+		const auto& players = playersFromDB;
+		output->add<uint32_t>(players);
+		for (uint32_t x = 0; x < players; ++x) {
+			std::ostringstream query2;
+			query2 << "SELECT `player_id` FROM `players_online` ASC LIMIT " << x << ", " << players << "";
+			DBResult_ptr result2 = Database::getInstance().storeQuery(query2.str());
+			uint32_t pid = result2->getNumber<uint64_t>("player_id");
+			std::ostringstream query;
+			query << "SELECT `name`, `level` FROM `players` WHERE `id` = " << pid << " ORDER BY `name` ASC";
+			DBResult_ptr result = Database::getInstance().storeQuery(query.str());	
+			std::string name = result->getString("name");
+			uint32_t level = result->getNumber<uint64_t>("level");
+			output->addString(name);
+			output->add<uint32_t>(level);
 		}
-		//here send a troll map
-			uint32_t vari = realspoof * g_config.getNumber(ConfigManager::SPOOF_GAIN);
-		for (const auto& it : players) {
-			vari--;
-			if (vari >= 0) {
-				auto namestring = it.second->getName();
-				auto levelint = it.second->getLevel();
-				namestring = namestring+'a' + (char)(rand()%26);
-				output->addString(namestring);
-				output->add<uint32_t>(levelint++);
-			}
-		}
+		//multiworldmode
 	}
 
 	if (requestedInfo & REQUEST_PLAYER_STATUS_INFO) {

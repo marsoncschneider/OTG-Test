@@ -27,7 +27,7 @@ cleanProtectionZones = false
 -- Connection Config
 -- NOTE: maxPlayers set to 0 means no limit
 -- NOTE: MaxPacketsPerSeconds if you change you will be subject to bugs by WPE, keep the default value of 25
-ip = "honeratt.com.br"
+ip = "honera.com.br"
 bindOnlyGlobalAddress = false
 loginProtocolPort = 7171
 gameProtocolPort = 7172
@@ -36,7 +36,7 @@ maxPlayers = 0
 motd = "Bem vindo ao OTG-Global Free!"
 onePlayerOnlinePerAccount = true
 allowClones = false
-serverName = "Asgaard"
+serverName = "Honera"
 statusTimeout = 5 * 1000
 replaceKickOnLogin = true
 maxPacketsPerSecond = 25
@@ -109,7 +109,7 @@ maxMarketOffersAtATimePerPlayer = 100
 -- MySQL
 mysqlHost = "127.0.0.1"
 mysqlUser = "root"
-mysqlPass = "password"
+mysqlPass = "Hoy3ez87j9"
 mysqlDatabase = "otserv"
 mysqlPort = 3306
 mysqlSock = ""
