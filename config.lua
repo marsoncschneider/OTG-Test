@@ -27,14 +27,14 @@ cleanProtectionZones = false
 -- Connection Config
 -- NOTE: maxPlayers set to 0 means no limit
 -- NOTE: MaxPacketsPerSeconds if you change you will be subject to bugs by WPE, keep the default value of 25
-ip = "honera.com.br"
+ip = "localhost"
 bindOnlyGlobalAddress = false
 loginProtocolPort = 7171
 gameProtocolPort = 7172
 statusProtocolPort = 7171
 maxPlayers = 0
-motd = "Bem vindo ao OTG-Global Free!"
-onePlayerOnlinePerAccount = true
+motd = "Bem vindo ao Honera!"
+onePlayerOnlinePerAccount = false
 allowClones = false
 serverName = "Honera"
 statusTimeout = 5 * 1000
@@ -62,8 +62,8 @@ onlyPremiumAccount = false
 -- Customs
 weatherRain = false
 thunderEffect = false
-freeQuests = false
-allConsoleLog = false
+freeQuests = true
+allConsoleLog = true
 
 -- Deaths
 -- NOTE: Leave deathLosePercent as -1 if you want to use the default
@@ -109,10 +109,11 @@ maxMarketOffersAtATimePerPlayer = 100
 -- MySQL
 mysqlHost = "127.0.0.1"
 mysqlUser = "root"
-mysqlPass = "Hoy3ez87j9"
+mysqlPass = ""
 mysqlDatabase = "otserv"
 mysqlPort = 3306
 mysqlSock = ""
+passwordType = sha1
 
 -- Misc.
 allowChangeOutfit = true
@@ -123,7 +124,7 @@ emoteSpells = false
 classicEquipmentSlots = false
 allowWalkthrough = true
 coinPacketSize = 25
-coinImagesURL = "http://honera.com.br/images/store/"
+coinImagesURL = "http://127.0.0.1/images/store/"
 classicAttackSpeed = false
 showScriptsLogInConsole = false
 

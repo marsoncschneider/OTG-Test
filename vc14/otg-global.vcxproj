@@ -84,7 +84,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)-$(Platform)</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-  </PropertyGroup>
+	</PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>_CONSOLE;$(PREPROCESSOR_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -219,6 +219,7 @@
     <ClCompile Include="..\src\position.cpp" />
     <ClCompile Include="..\src\protocol.cpp" />
     <ClCompile Include="..\src\protocolgame.cpp" />
+	 <ClCompile Include="..\src\protocolgamebase.cpp" />
     <ClCompile Include="..\src\protocollogin.cpp" />
     <ClCompile Include="..\src\protocolstatus.cpp" />
     <ClCompile Include="..\src\raids.cpp" />
@@ -313,6 +314,7 @@
     <ClInclude Include="..\src\position.h" />
     <ClInclude Include="..\src\protocol.h" />
     <ClInclude Include="..\src\protocolgame.h" />
+	<ClInclude Include="..\src\protocolgamebase.h" />
     <ClInclude Include="..\src\protocollogin.h" />
     <ClInclude Include="..\src\protocolstatus.h" />
     <ClInclude Include="..\src\pugicast.h" />
@@ -327,6 +329,7 @@
     <ClInclude Include="..\src\signals.h" />
     <ClInclude Include="..\src\spawn.h" />
     <ClInclude Include="..\src\spells.h" />
+	<ClInclude Include="..\src\protocolspectator.h" />
     <ClInclude Include="..\src\talkaction.h" />
     <ClInclude Include="..\src\tasks.h" />
     <ClInclude Include="..\src\teleport.h" />

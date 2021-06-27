@@ -374,7 +374,11 @@ class Player final : public Creature, public Cylinder
 		const GuildWarVector& getGuildWarVector() const {
 		return guildWarVector;
 		}
-
+		
+		const std::map<uint8_t, OpenContainer>& getOpenContainers() const {
+			return openContainers;
+		}
+		
 		std::list<MonsterType*> getBestiaryTrackerList() const {
 			return BestiaryTracker;
 		}
@@ -1534,7 +1538,40 @@ class Player final : public Creature, public Cylinder
 				client->writeToOutputBuffer(message);
 			}
 		}
-
+		
+		bool isLiveCasting() {
+			return client && client->castinfo.enabled;
+		}
+		bool startLiveCasting(std::string password) {
+			return client && client->startLiveCasting(password);
+		}
+		void stopLiveCasting() {
+			if (client) {
+				client->stopLiveCasting();
+			}
+		}
+		void pauseLiveCasting(std::string reason) {
+			if (client) {
+				client->pauseLiveCasting(reason);
+			}
+		}
+		// cast methods;
+		bool kickCastSpectator(std::string name) {
+			return client && client->kickCastSpectator(name);
+		}
+		bool banCastSpectator(std::string name) {
+			return client && client->banCastSpectator(name);
+		}
+		bool unBanCastSpectator(std::string name) {
+			return client && client->unBanCastSpectator(name);
+		}
+		bool muteCastSpectator(std::string name) {
+			return client && client->muteCastSpectator(name);
+		}
+		bool unMuteCastSpectator(std::string name) {
+			return client && client->unMuteCastSpectator(name);
+		}
+		
 		void sendStoreOpen(uint8_t serviceType) {
 			if (client) {
 				client->sendOpenStore(serviceType);
@@ -2141,6 +2178,8 @@ class Player final : public Creature, public Cylinder
 		friend class Actions;
 		friend class IOLoginData;
 		friend class ProtocolGame;
+		friend class ProtocolSpectator;
+		friend class ProtocolGameBase;
 
   account::Account *account_;
 };

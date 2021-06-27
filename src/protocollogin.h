@@ -42,7 +42,7 @@ class ProtocolLogin : public Protocol
 
 	private:
 		void disconnectClient(const std::string& message, uint16_t version);
-
+		void getCastList(const std::string& password, uint16_t version);
 		void getCharacterList(const std::string& accountName, const std::string& password, uint16_t version);
 };
 

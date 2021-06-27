@@ -53,6 +53,9 @@ class TalkAction : public Event
 		std::string getSeparator() const {
 			return separator;
 		}
+		uint16_t getChannel() const {
+			return channel;
+		}
 		void setSeparator(std::string sep) {
 			separator = sep;
 		}
@@ -67,6 +70,7 @@ class TalkAction : public Event
 		std::string words;
 		std::vector<std::string> wordsMap;
 		std::string separator = "\"";
+		uint16_t channel = 0;
 };
 
 class TalkActions final : public BaseEvents
@@ -79,7 +83,8 @@ class TalkActions final : public BaseEvents
 		TalkActions(const TalkActions&) = delete;
 		TalkActions& operator=(const TalkActions&) = delete;
 
-		TalkActionResult_t playerSaySpell(Player* player, SpeakClasses type, const std::string& words) const;
+		//TalkActionResult_t playerSaySpell(Player* player, SpeakClasses type, const std::string& words) const;
+		TalkActionResult_t playerSaySpell(Player* player, SpeakClasses type, uint16_t channelId, const std::string& words) const;
 
 		bool registerLuaEvent(TalkAction* event);
 		void clear(bool fromLua) override final;
