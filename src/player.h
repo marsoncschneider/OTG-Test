@@ -38,6 +38,7 @@
 #include "outfit.h"
 #include "party.h"
 #include "protocolgame.h"
+#include "protocolgamebase.h"
 #include "reward.h"
 #include "rewardchest.h"
 #include "town.h"
