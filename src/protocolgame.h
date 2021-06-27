@@ -312,21 +312,21 @@ private:
 //	void sendTutorial(uint8_t tutorialId);
 //	void sendAddMarker(const Position &pos, uint8_t markType, const std::string &desc);
 
-//	void sendTournamentLeaderboard();
+	void sendTournamentLeaderboard();
 
-//	void sendCyclopediaCharacterNoData(CyclopediaCharacterInfoType_t characterInfoType, uint8_t errorCode);
-//	void sendCyclopediaCharacterBaseInformation();
-//	void sendCyclopediaCharacterGeneralStats();
-//	void sendCyclopediaCharacterCombatStats();
-//	void sendCyclopediaCharacterRecentDeaths(uint16_t page, uint16_t pages, const std::vector<RecentDeathEntry> &entries);
-//	void sendCyclopediaCharacterRecentPvPKills(uint16_t page, uint16_t pages, const std::vector<RecentPvPKillEntry> &entries);
-//	void sendCyclopediaCharacterAchievements();
-//	void sendCyclopediaCharacterItemSummary();
-//	void sendCyclopediaCharacterOutfitsMounts();
-//	void sendCyclopediaCharacterStoreSummary();
-//	void sendCyclopediaCharacterInspection();
-//	void sendCyclopediaCharacterBadges();
-//	void sendCyclopediaCharacterTitles();
+	void sendCyclopediaCharacterNoData(CyclopediaCharacterInfoType_t characterInfoType, uint8_t errorCode);
+	void sendCyclopediaCharacterBaseInformation();
+	void sendCyclopediaCharacterGeneralStats();
+	void sendCyclopediaCharacterCombatStats();
+	void sendCyclopediaCharacterRecentDeaths(uint16_t page, uint16_t pages, const std::vector<RecentDeathEntry> &entries);
+	void sendCyclopediaCharacterRecentPvPKills(uint16_t page, uint16_t pages, const std::vector<RecentPvPKillEntry> &entries);
+	void sendCyclopediaCharacterAchievements();
+	void sendCyclopediaCharacterItemSummary();
+	void sendCyclopediaCharacterOutfitsMounts();
+	void sendCyclopediaCharacterStoreSummary();
+	void sendCyclopediaCharacterInspection();
+	void sendCyclopediaCharacterBadges();
+	void sendCyclopediaCharacterTitles();
 
 //	void sendCreatureWalkthrough(const Creature *creature, bool walkthrough);
 //	void sendCreatureShield(const Creature *creature);
