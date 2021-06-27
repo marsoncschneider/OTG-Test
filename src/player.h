@@ -39,6 +39,7 @@
 #include "party.h"
 #include "protocolgame.h"
 #include "protocolgamebase.h"
+#include "protocolspectator.h"
 #include "reward.h"
 #include "rewardchest.h"
 #include "town.h"
