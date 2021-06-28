@@ -651,7 +651,7 @@ class Game
 
 	private:
 		void checkImbuements();
-		bool playerSaySpell(Player* player, SpeakClasses type, uint16_t channelId, const std::string& text);
+		bool playerSaySpell(Player* player, SpeakClasses type, const std::string& text);
 		void playerWhisper(Player* player, const std::string& text);
 		bool playerYell(Player* player, const std::string& text);
 		bool playerSpeakTo(Player* player, SpeakClasses type, const std::string& receiver, const std::string& text);

@@ -43,8 +43,6 @@
 #include "iobestiary.h"
 #include "monsters.h"
 
-LiveCastsMap ProtocolGame::liveCasts;
-
 extern Game g_game;
 extern ConfigManager g_config;
 extern Actions actions;
@@ -154,14 +152,6 @@ void ProtocolGame::release()
 	//dispatcher thread
 	if (player && player->client == shared_from_this())
 	{
-		if (isLiveCasting()) {
-			sendChannelEvent(CHANNEL_CAST, player->name, CHANNELEVENT_EXCLUDE);
-			for (auto spectator : castinfo.spectators) {
-				sendChannelEvent(CHANNEL_CAST, spectator->name, CHANNELEVENT_EXCLUDE); // which is gonna be sent to every spectator
-			}
-
-			stopLiveCasting();
-		}
 		player->client.reset();
 		player->decrementReferenceCounter();
 		player = nullptr;

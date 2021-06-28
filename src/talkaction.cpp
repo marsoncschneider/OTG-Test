@@ -97,15 +97,10 @@ bool TalkActions::registerLuaEvent(TalkAction* event)
 	return true;
 }
 
-//TalkActionResult_t TalkActions::playerSaySpell(Player* player, SpeakClasses type, const std::string& words) const
-TalkActionResult_t TalkActions::playerSaySpell(Player* player, SpeakClasses type, uint16_t channelId, const std::string& words) const
+TalkActionResult_t TalkActions::playerSaySpell(Player* player, SpeakClasses type, const std::string& words) const
 {
 	size_t wordsLength = words.length();
 	for (auto it = talkActions.begin(); it != talkActions.end(); ) {
-		if (talkAction.getChannel() != 0 && channelId != talkAction.getChannel()) {
-			continue;
-		}
-
 		const std::string& talkactionWords = it->first;
 		size_t talkactionLength = talkactionWords.length();
 		if (wordsLength < talkactionLength || strncasecmp(words.c_str(), talkactionWords.c_str(), talkactionLength) != 0) {
@@ -156,18 +151,6 @@ bool TalkAction::configureEvent(const pugi::xml_node& node)
 	if (separatorAttribute) {
 		separator = pugi::cast<char>(separatorAttribute.value());
 	}
-	
-	pugi::xml_attribute channelAttibute = node.attribute("channel");
-	if (channelAttibute) {
-		std::string channelName = asLowerCaseString(channelAttibute.as_string());
-		if (channelName == "cast") {
-			channel = CHANNEL_CAST;
-		} else {
-			std::cout << "[Error - TalkAction::configureEvent] Unknown channel name: " << channelName << std::endl;
-			return false;
-		}
-	}
-
 
 	for (auto word : explodeString(wordsAttribute.as_string(), ";")) {
 		setWords(word);

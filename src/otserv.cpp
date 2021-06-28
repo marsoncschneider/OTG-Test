@@ -27,7 +27,6 @@
 #include "game.h"
 #include "iomarket.h"
 #include "protocollogin.h"
-#include "protocolspectator.h"
 #include "protocolstatus.h"
 #include "rsa.h"
 #include "scheduler.h"
@@ -301,9 +300,6 @@ void mainLoader(int, char*[], ServiceManager* services) {
 	// Game client protocols
 	services->add<ProtocolGame>(static_cast<uint16_t>(g_config.getNumber(
 												ConfigManager::GAME_PORT)));
-												
-	services->add<ProtocolSpectator>(g_config.getNumber(ConfigManager::CAST_PORT));
-	
 	services->add<ProtocolLogin>(static_cast<uint16_t>(g_config.getNumber(
 												ConfigManager::LOGIN_PORT)));
 	// OT protocols

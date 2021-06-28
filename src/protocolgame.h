@@ -23,8 +23,6 @@
 #include <string>
 
 #include "protocol.h"
-#include "protocolgamebase.h"
-#include "protocolspectator.h"
 #include "chat.h"
 #include "configmanager.h"
 #include "creature.h"
@@ -45,9 +43,6 @@ class ProtocolGame;
 using ProtocolGame_ptr = std::shared_ptr<ProtocolGame>;
 
 extern ConfigManager g_config;
-
-typedef std::unordered_map<Player*, ProtocolGame*> LiveCastsMap;
-
 extern Game g_game;
 
 struct TextMessage
@@ -67,7 +62,6 @@ struct TextMessage
 };
 
 class ProtocolGame final : public Protocol
-//class ProtocolGame final : public ProtocolGameBase
 {
 public:
 	// static protocol information
@@ -88,8 +82,7 @@ public:
 		return "gameworld protocol";
 	}
 
-	explicit ProtocolGame(Connection_ptr initConnection) : ProtocolGameBase(initConnection) {}
-	
+	explicit ProtocolGame(Connection_ptr initConnection) : Protocol(initConnection) {}
 
 	void login(const std::string &name, uint32_t accnumber, OperatingSystem_t operatingSystem);
 	void logout(bool displayEffect, bool forced);
@@ -103,20 +96,6 @@ public:
 	{
 		return version;
 	}
-	bool canJoinCast(const std::string& password) {
-			return castinfo.enabled && castinfo.password == password;
-		}
-
-		uint32_t getSpectatorsCount() {
-			return castinfo.spectators.size();
-		}
-
-		static ProtocolGame* getLiveCast(Player* player) {
-			const auto& it = liveCasts.find(player);
-			return it != liveCasts.end() ? it->second : nullptr;
-		}
-
-		static LiveCastsMap liveCasts;
 
 private:
 	ProtocolGame_ptr getThis()
@@ -128,17 +107,7 @@ private:
 	void writeToOutputBuffer(const NetworkMessage &msg);
 
 	void release() override;
-	bool startLiveCasting(const std::string& password);
-		void stopLiveCasting();
-		void pauseLiveCasting(const std::string& reason);
-		bool isLiveCasting() {
-			return castinfo.enabled;
-		}
-		bool kickCastSpectator(std::string name);
-		bool banCastSpectator(std::string name);
-		bool unBanCastSpectator(std::string name);
-		bool muteCastSpectator(std::string name);
-		bool unMuteCastSpectator(std::string name);
+
 	void checkCreatureAsKnown(uint32_t id, bool &known, uint32_t &removedKnown);
 
 	bool canSee(int32_t x, int32_t y, int32_t z) const;
