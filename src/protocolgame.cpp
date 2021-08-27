@@ -4474,12 +4474,12 @@ void ProtocolGame::sendCreatureHealth(const Creature *creature)
 	}
 	writeToOutputBuffer(msg);
 	
-	NetworkMessage msg;
-	msg.addByte(0x8B);
-	msg.add<uint32_t>(creature->getID());
-	msg.addByte(11);  // mana percent
-	msg.addByte(50);
-	writeToOutputBuffer(msg);
+	NetworkMessage msg2;
+	msg2.addByte(0x8B);
+	msg2.add<uint32_t>(creature->getID());
+	msg2.addByte(11);  // mana percent
+	msg2.addByte(50);
+	writeToOutputBuffer(msg2);
 }
 
 void ProtocolGame::sendCreatureHelpers(uint32_t creatureId, uint16_t helpers)
