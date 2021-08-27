@@ -6229,7 +6229,7 @@ void Game::addCreatureMana(const Creature* target)
 {
 	SpectatorHashSet spectators;
 	map.getSpectators(spectators, target->getPosition(), true, true);
-	addCreatureHealth(spectators, target);
+	addCreatureMana(spectators, target);
 }
 
 void Game::addCreatureMana(const SpectatorHashSet& spectators, const Creature* target)
