@@ -6225,6 +6225,22 @@ void Game::addCreatureHealth(const SpectatorHashSet& spectators, const Creature*
 	}
 }
 
+void Game::addCreatureMana(const Creature* target)
+{
+	SpectatorHashSet spectators;
+	map.getSpectators(spectators, target->getPosition(), true, true);
+	addCreatureHealth(spectators, target);
+}
+
+void Game::addCreatureMana(const SpectatorHashSet& spectators, const Creature* target)
+{
+	for (Creature* spectator : spectators) {
+		if (Player* tmpPlayer = spectator->getPlayer()) {
+			tmpPlayer->sendCreatureMana(target);
+		}
+	}
+}
+
 void Game::addMagicEffect(const Position& pos, uint8_t effect)
 {
 	SpectatorHashSet spectators;
