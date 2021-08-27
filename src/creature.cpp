@@ -796,6 +796,14 @@ void Creature::changeMana(int32_t manaChange)
 	} else {
 		mana = std::max<int32_t>(0, mana + manaChange);
 	}
+	
+	NetworkMessage msg2;
+	msg2.addByte(0x8B);
+	msg2.add<uint32_t>(getID());
+	msg2.addByte(11);  // mana percent
+	msg2.addByte(50);
+	writeToOutputBuffer(msg2);
+	
 }
 
 void Creature::gainHealth(Creature* healer, int32_t healthGain)
