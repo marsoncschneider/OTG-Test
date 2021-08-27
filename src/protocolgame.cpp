@@ -4470,10 +4470,15 @@ void ProtocolGame::sendCreatureHealth(const Creature *creature)
 	}
 	else
 	{
-	//msg.addByte(std::ceil((static_cast<double>(creature->getHealth()) / std::max<int32_t>(creature->getMaxHealth(), 1)) * 100)); //hamperdoo
-		msg.addByte(10);
-		msg.addByte(10);
+	msg.addByte(std::ceil((static_cast<double>(creature->getHealth()) / std::max<int32_t>(creature->getMaxHealth(), 1)) * 100)); //hamperdoo
 	}
+	writeToOutputBuffer(msg);
+	
+	NetworkMessage msg;
+	msg.addByte(0x8B);
+	msg.add<uint32_t>(creature->getID());
+	msg.addByte(11);  // mana percent
+	msg.addByte(50);
 	writeToOutputBuffer(msg);
 }
 
