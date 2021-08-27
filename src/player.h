@@ -1229,7 +1229,7 @@ class Player final : public Creature, public Cylinder
 		}
 		void sendCreatureMana(const Creature* creature) const {
 			if (client) {
-				client->sendCreatureHealth(creature);
+				client->sendCreatureMana(creature);
 			}
 		}
 		void sendDistanceShoot(const Position& from, const Position& to, unsigned char type) const {
