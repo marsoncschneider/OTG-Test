@@ -4472,6 +4472,7 @@ void ProtocolGame::sendCreatureHealth(const Creature *creature)
 	{
 	//msg.addByte(std::ceil((static_cast<double>(creature->getHealth()) / std::max<int32_t>(creature->getMaxHealth(), 1)) * 100)); //hamperdoo
 		msg.addByte(10);
+		msg.addByte(10);
 	}
 	writeToOutputBuffer(msg);
 }
