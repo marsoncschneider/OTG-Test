@@ -4489,7 +4489,7 @@ void ProtocolGame::sendCreatureMana(const Creature *creature)
 	msg2.addByte(0x8B);
 	msg2.add<uint32_t>(creature->getID());
 	msg2.addByte(11);  // mana percent
-	msg2.addByte(50); //mana percent input 0-100??
+	msg2.addByte(std::ceil((static_cast<double>(creature->getMana()) / std::max<int32_t>(creature->getMaxMana(), 1)) * 100)); //hamperdoo
 	writeToOutputBuffer(msg2);
 }
 
