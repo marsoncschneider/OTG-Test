@@ -250,6 +250,7 @@ private:
 	void sendMagicEffect(const Position &pos, uint8_t type);
 	void sendRestingStatus(uint8_t protection);
 	void sendCreatureHealth(const Creature *creature);
+	void sendCreatureMana(const Creature *creature);
 	void sendCreatureHelpers(uint32_t creatureId, uint16_t helpers);
 	void sendSkills();
 	void sendPing();
