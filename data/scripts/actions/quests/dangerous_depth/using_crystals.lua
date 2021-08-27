@@ -202,7 +202,9 @@ local function sumonarFieryHearts()
 	end
 	if boss == true and contagemHearts == 0 then
 		for _, position in pairs(fieryHearts) do
+		if boss == true and auximmortal == 0 then
 			Game.createMonster("Fiery Heart", position):registerEvent("fieryHearts")
+		end
 		end
 		local oldBossHealth = bossId:getHealth()
 		local oldBossPosition = bossId:getPosition()
@@ -224,8 +226,11 @@ local function sumonarFieryHearts()
 
 		end
 	end
-	if boss == true and auximmortal == 0 then
-		addEvent(sumonarFieryHearts, 40*1000)
+	--if boss == true and auximmortal == 0 then
+	if auximmortal == 1 then
+		addEvent(sumonarFieryHearts, 30*1000)
+	else
+		addEvent(sumonarFieryHearts, 30*1000)
 	end
 end
 

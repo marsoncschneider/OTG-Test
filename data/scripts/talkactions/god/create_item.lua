@@ -6,7 +6,7 @@ local createItem = TalkAction("/i")
 
 function createItem.onSay(player, words, param)
 	if not player:getGroup():getAccess() or player:getAccountType() < ACCOUNT_TYPE_GOD then
-		return true
+		--return true
 	end
 
 	local split = param:split(",")

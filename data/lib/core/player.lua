@@ -19,9 +19,9 @@ function Player.feed(self, food)
 	--manaticks = manaticks / 2 --neste exemplo os ticks cairam pela metade, acelerando o regen
 	
 	if check > 0 then -- neste if, se o player possui tempo de regen boost > 0
-		mult = 2 -- neste exemplo a quantidade da regen dobrou
-		hpticks = hpticks / 2 --neste exemplo os ticks cairam pela metade, acelerando o regen DENOVO
-		manaticks = manaticks / 2 --neste exemplo os ticks cairam pela metade, acelerando o regen DENOVO
+		mult = 200 -- neste exemplo a quantidade da regen dobrou
+		hpticks = hpticks / 10 --neste exemplo os ticks cairam pela metade, acelerando o regen DENOVO
+		manaticks = manaticks / 10 --neste exemplo os ticks cairam pela metade, acelerando o regen DENOVO
 	end
 
 

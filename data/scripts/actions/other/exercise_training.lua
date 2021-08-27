@@ -51,61 +51,61 @@ local function startTraining(playerId, startPosition, itemid, tilePosition, bonu
                             local charges_n = exercise:getAttribute(ITEM_ATTRIBUTE_CHARGES)
                             if charges_n >= 1 then
                                 exercise:setAttribute(ITEM_ATTRIBUTE_CHARGES,(charges_n-1))
-
+								
                                 local voc = player:getVocation()
-
+								
                                 if skills[itemid].id == SKILL_MAGLEVEL then
                                     local magicRate = getRateFromTable(magicLevelStages, player:getMagicLevel(), magicRateDefault)
                                     if not bonusDummy then
                                         player:addManaSpent(math.ceil(500*magicRate))
-                                    else
+										else
                                         player:addManaSpent(math.ceil(500*magicRate)*1.1) -- 10%
-                                    end
-                                else
+									end
+									else
                                     local skillRate = getRateFromTable(skillsStages, player:getEffectiveSkillLevel(skills[itemid].id), skillRateDefault)
                                     if not bonusDummy then
                                         player:addSkillTries(skills[itemid].id, 7*skillRate)
-                                    else
+										else
                                         player:addSkillTries(skills[itemid].id, (7*skillRate)*1.1) -- 10%
-                                    end
-                                end
-                                    tilePosition:sendMagicEffect(CONST_ME_HITAREA)
+									end
+								end
+								tilePosition:sendMagicEffect(CONST_ME_HITAREA)
                                 if skills[itemid].range then
                                     playerPosition:sendDistanceEffect(tilePosition, skills[itemid].range)
-                                end
+								end
                                 if exercise:getAttribute(ITEM_ATTRIBUTE_CHARGES) == 0 then
                                     removeExerciseWeapon(player, exercise)
-                                else
+									else
                                     local training = addEvent(startTraining, voc:getAttackSpeed(), playerId,startPosition,itemid,tilePosition,bonusDummy,dummyId)
                                     player:setStorageValue(Storage.isTraining,1)
                                     player:setTraining(true)
-                                end
-                            else
+								end
+								else
                                 removeExerciseWeapon(player, exercise)
-                            end
-                        end
-                    end
-                end
-            else
-                player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped.")
+							end
+						end
+					end
+				end
+				else
+                player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped1.")
                 stopEvent(training)
                 player:setStorageValue(Storage.isTraining,0)
                 player:setTraining(false)
-            end
-        else
+			end
+			else
             stopEvent(training)
-            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped.")
+            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped2.")
             player:setStorageValue(Storage.isTraining, 0)
             player:setTraining(false)
-        end
-    else
+		end
+		else
         stopEvent(training)
         if player then
-            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped.")
+            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your training has stopped3.")
             player:setStorageValue(Storage.isTraining,0)
             player:setTraining(false)
-        end
-    end
+		end
+	end
     return true
 end
 
@@ -114,32 +114,38 @@ local exerciseTraining = Action()
 function exerciseTraining.onUse(player, item, fromPosition, target, toPosition, isHotkey)
     local startPos = player:getPosition()
     if player:getStorageValue(Storage.isTraining) == 1 then
-        player:sendTextMessage(MESSAGE_FAILURE, "You are already training.")
-		stopEvent(training)
-		player:setTraining(false)
-		player:setStorageValue(Storage.isTraining,0)
+        player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You are already training. TRY2")
+		
+		local newPosition = player:getClosestFreePosition(player:getPosition(), false)
+		
+		newPosition:sendMagicEffect(CONST_ME_TELEPORT)
+		local path = player:getPathTo(newPosition, 0, 0, true, true)
+		if not doMoveCreature(player, path[1]) then
+			player:teleportTo(newPosition)
+		end
+				
         return false
-    end
+	end
     if target:isItem() then
         if isInArray(houseDummies,target:getId()) then
             if not skills[item.itemid].range and (startPos:getDistance(target:getPosition()) > 1) then
-                player:sendTextMessage(MESSAGE_FAILURE, "Get closer to the dummy.")
+                player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Get closer to the dummy.")
                 stopEvent(training)
                 return true
-            end
-            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You started training.")
+			end
+            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You started training1.")
             startTraining(player:getId(),startPos,item.itemid,target:getPosition(), true, target:getId())
-        elseif isInArray(freeDummies, target:getId()) then
+			elseif isInArray(freeDummies, target:getId()) then
             if not skills[item.itemid].range and (startPos:getDistance(target:getPosition()) > 1) then
-                player:sendTextMessage(MESSAGE_FAILURE, "Get closer to the dummy.")
+                player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Get closer to the dummy.")
                 stopEvent(training)
                 return true
-            end
-            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You started training.")
+			end
+            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You started training2.")
             startTraining(player:getId(),startPos,item.itemid,target:getPosition(), false, target:getId())
-			player:setStorageValue(Storage.isTraining,1)
-        end
-    end
+			player:setStorageValue(Storage.isTraining, 1)
+		end
+	end
     return true
 end
 
