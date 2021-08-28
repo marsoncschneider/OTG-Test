@@ -4479,12 +4479,12 @@ void ProtocolGame::sendCreatureHealth(const Creature *creature)
 void ProtocolGame::sendCreatureMana(const Creature *creature)
 {
 	//mana change
-	NetworkMessage msg2;
-	msg2.addByte(0x8B);
-	msg2.add<uint32_t>(creature->getID());
-	msg2.addByte(11);  // mana percent
-	msg2.addByte(std::ceil((static_cast<double>(creature->getMana()) / std::max<int32_t>(creature->getMaxMana(), 1)) * 100)); //hamperdoo
-	writeToOutputBuffer(msg2);
+	NetworkMessage msg;
+	msg.addByte(0x8B);
+	msg.add<uint32_t>(creature->getID());
+	msg.addByte(11);  // mana percent
+	msg.addByte(std::ceil((static_cast<double>(creature->getMana()) / std::max<int32_t>(creature->getMaxMana(), 1)) * 100)); //hamperdoo
+	writeToOutputBuffer(msg);
 }
 
 void ProtocolGame::sendCreatureHelpers(uint32_t creatureId, uint16_t helpers)
