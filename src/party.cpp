@@ -223,7 +223,7 @@ bool Party::joinParty(Player& player)
 	ss << "You have joined " << leaderName << "'" << (leaderName.back() == 's' ? "" : "s") <<
 	   " party. Open the party channel to communicate with your companions.";
 	player.sendTextMessage(MESSAGE_PARTY_MANAGEMENT, ss.str());
-	g_game.addCreatureMana(player);
+	g_game.addCreatureMana(&player);
 	return true;
 }
 
